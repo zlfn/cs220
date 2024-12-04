@@ -42,22 +42,53 @@ impl<T: Debug> SinglyLinkedList<T> {
 
     /// Adds the given node to the front of the list.
     pub fn push_front(&mut self, value: T) {
-        todo!()
+        let old_head = self.head.take();
+        self.head = Some(Node {
+            value,
+            next: old_head.map(Box::new)
+        })
     }
 
     /// Adds the given node to the back of the list.
     pub fn push_back(&mut self, value: T) {
-        todo!()
+        let new_node = Node {
+            value,
+            next: None,
+        };
+
+        match &mut self.head {
+            None => self.head = Some(new_node),
+            Some(s) => {
+                let mut x = &mut s.next;
+                while let Some(n) = x {
+                    x = &mut n.next;
+                }
+                *x = Some(Box::new(new_node))
+            }
+        }
     }
 
     /// Removes and returns the node at the front of the list.
     pub fn pop_front(&mut self) -> Option<T> {
-        todo!()
+        let Some(head) = self.head.take() else {
+            return None
+        };
+        self.head = head.next.map(|x| *x);
+        Some(head.value)
     }
 
     /// Removes and returns the node at the back of the list.
     pub fn pop_back(&mut self) -> Option<T> {
-        todo!()
+        let mut current = self.head.as_mut()?;
+        if current.next.is_none() {
+            return self.head.take().map(|node| node.value);
+        }
+
+        // If current.next.next exist -> current = current.next
+        while current.next.as_ref()?.next.is_some() {
+            current = current.next.as_mut()?;
+        }
+        current.next.take().map(|node| node.value)
     }
 
     /// Create a new list from the given vector `vec`.
