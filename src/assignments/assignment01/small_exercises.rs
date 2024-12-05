@@ -8,10 +8,10 @@
 
 /// Adds two unsigned words. If overflow happens, just wrap around.
 pub fn add(lhs: usize, rhs: usize) -> usize {
-    todo!()
+    lhs.overflowing_add(rhs).0
 }
 
 /// Subtracts two unsigned words. If overflow happens, just wrap around.
 pub fn sub(lhs: usize, rhs: usize) -> usize {
-    todo!()
+    lhs.overflowing_sub(rhs).0
 }

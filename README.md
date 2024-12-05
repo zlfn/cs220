@@ -5,7 +5,7 @@ Repository for personal Rust practice.
 Feel free to copy this repository's code. (But your professor may not like it. Be careful not to get caught by him)
 
 ## Progress
-* [ ] assignment01
+* [x] assignment01
 * [ ] assignment02
 * [ ] assignment03
 * [ ] assignment04
